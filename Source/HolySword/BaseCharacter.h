@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "BaseCharacter.generated.h"
 
+class UCameraComponent;
+class USpringArmComponent;
+
 UCLASS()
 class HOLYSWORD_API ABaseCharacter : public ACharacter
 {
@@ -16,7 +19,11 @@ class HOLYSWORD_API ABaseCharacter : public ACharacter
  */
 
 private:
+	UPROPERTY(VisibleAnywhere)
+    USpringArmComponent* SpringArmComponent;
 
+	UPROPERTY(VisibleAnywhere)
+	UCameraComponent* CameraComponent;
 protected:
 
 public:
