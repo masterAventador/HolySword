@@ -3,9 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputActionValue.h"
 #include "GameFramework/Character.h"
 #include "BaseCharacter.generated.h"
 
+class UInputMappingContext;
+struct FInputActionValue;
+class UInputAction;
 class UCameraComponent;
 class USpringArmComponent;
 
@@ -24,12 +28,19 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComponent;
+
 protected:
 
 public:
+	UPROPERTY(EditAnywhere)
+	UInputMappingContext* DefaultMappingContext;
 	
+	UPROPERTY(EditAnywhere)
+	UInputAction* IALookAction;
 
-
+	UPROPERTY(EditAnywhere)
+	UInputAction* IAMoveAction;
+	
 
 /*
  * Functions
@@ -46,5 +57,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual void LookActionFunc(const FInputActionValue& Value);
+
+	virtual void MoveActionFunc(const FInputActionValue& Value);
 
 };
