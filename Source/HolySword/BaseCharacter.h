@@ -17,6 +17,7 @@ UCLASS()
 class HOLYSWORD_API ABaseCharacter : public ACharacter
 {
 	GENERATED_BODY()
+	friend class UBaseAnimInstance;
 
 /*
  * Variables
@@ -29,9 +30,6 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComponent;
 
-protected:
-
-public:
 	UPROPERTY(EditAnywhere)
 	UInputMappingContext* DefaultMappingContext;
 	
@@ -40,6 +38,17 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	UInputAction* IAMoveAction;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
+	bool bIsMoving;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
+	double Velocity;
+
+protected:
+
+public:
+	
 	
 
 /*

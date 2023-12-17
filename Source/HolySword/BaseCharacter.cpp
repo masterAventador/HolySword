@@ -24,7 +24,8 @@ ABaseCharacter::ABaseCharacter()
 	CameraComponent->SetupAttachment(SpringArmComponent);
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
-	
+	GetCharacterMovement()->RotationRate = FRotator(0.f,500.f,0.f);
+
 }
 
 void ABaseCharacter::BeginPlay()
@@ -44,7 +45,8 @@ void ABaseCharacter::BeginPlay()
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	Velocity = GetVelocity().Size2D();
+	bIsMoving = Velocity > 0;
 }
 
 void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
