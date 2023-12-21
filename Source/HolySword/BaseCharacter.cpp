@@ -2,6 +2,8 @@
 
 
 #include "BaseCharacter.h"
+
+#include "CharacterEnums.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "EnhancedInputComponent.h"
@@ -9,7 +11,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 
 
-ABaseCharacter::ABaseCharacter()
+ABaseCharacter::ABaseCharacter():State(CharacterState::Idle),WeaponState(CharacterWeaponState::Unarmed)
 {
 
 	bUseControllerRotationPitch = bUseControllerRotationRoll = bUseControllerRotationYaw = false;
@@ -26,6 +28,14 @@ ABaseCharacter::ABaseCharacter()
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.f,500.f,0.f);
 
+}
+
+void ABaseCharacter::SetState(CharacterState NewState)
+{
+	if (State != NewState)
+	{
+		State = NewState;
+	}
 }
 
 void ABaseCharacter::BeginPlay()
@@ -46,7 +56,6 @@ void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	Velocity = GetVelocity().Size2D();
-	bIsMoving = Velocity > 0;
 }
 
 void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -56,26 +65,39 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 	if (EnhancedInputComponent)
 	{
-		EnhancedInputComponent->BindAction(IALookAction,ETriggerEvent::Triggered,this,&ThisClass::LookActionFunc);
-		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Triggered,this,&ThisClass::MoveActionFunc);
+		EnhancedInputComponent->BindAction(IALookAction,ETriggerEvent::Triggered,this,&ThisClass::LookAction);
+		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Triggered,this,&ThisClass::MoveActionStart);
+		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Completed,this,&ThisClass::MoveActionEnd);
 	}
 
 }
 
-void ABaseCharacter::LookActionFunc(const FInputActionValue& Value)
+void ABaseCharacter::LookAction(const FInputActionValue& Value)
 {
 	FVector2D LookVector = Value.Get<FVector2D>();
 	AddControllerYawInput(LookVector.X);
 	AddControllerPitchInput(LookVector.Y);
 }
 
-void ABaseCharacter::MoveActionFunc(const FInputActionValue& Value)
+void ABaseCharacter::MoveActionStart(const FInputActionValue& Value)
 {
+	SetState(CharacterState::Run);
+	
 	FVector2D MoveVector = Value.Get<FVector2D>();
 	FRotationMatrix RotationMatrix = FRotationMatrix(FRotator(0.f,GetControlRotation().Yaw,0.f));
 	FVector ForwardVector = RotationMatrix.GetUnitAxis(EAxis::X);
 	FVector RightVector = RotationMatrix.GetUnitAxis(EAxis::Y);
 	AddMovementInput(ForwardVector,MoveVector.X);
 	AddMovementInput(RightVector,MoveVector.Y);
+}
+
+void ABaseCharacter::MoveActionEnd(const FInputActionValue& Value)
+{
+	SetState(CharacterState::Idle);
+}
+
+void ABaseCharacter::EquipAction(const FInputActionValue& Value)
+{
+	WeaponState = CharacterWeaponState::Armed;
 }
 

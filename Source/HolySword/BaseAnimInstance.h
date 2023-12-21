@@ -6,6 +6,8 @@
 #include "Animation/AnimInstance.h"
 #include "BaseAnimInstance.generated.h"
 
+enum class CharacterWeaponState : uint8;
+enum class CharacterState : uint8;
 class ABaseCharacter;
 /**
  * 
@@ -22,9 +24,13 @@ class HOLYSWORD_API UBaseAnimInstance : public UAnimInstance
 private:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
 	ABaseCharacter* Character;
-	
+
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
-	bool bIsMoving;
+	CharacterState CharacterState;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
+	CharacterWeaponState CharacterWeaponState;
+	
 protected:
 
 public:
@@ -41,5 +47,5 @@ protected:
 public:
 	virtual void NativeBeginPlay() override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
-	
+
 };

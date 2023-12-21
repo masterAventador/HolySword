@@ -7,11 +7,14 @@
 #include "GameFramework/Character.h"
 #include "BaseCharacter.generated.h"
 
+enum class CharacterWeaponState : uint8;
+enum class CharacterState : uint8;
 class UInputMappingContext;
-struct FInputActionValue;
 class UInputAction;
 class UCameraComponent;
 class USpringArmComponent;
+
+
 
 UCLASS()
 class HOLYSWORD_API ABaseCharacter : public ACharacter
@@ -39,11 +42,17 @@ private:
 	UPROPERTY(EditAnywhere)
 	UInputAction* IAMoveAction;
 
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
-	bool bIsMoving;
+	UPROPERTY(EditAnywhere)
+	UInputAction* IAEquipAction;
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
 	double Velocity;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
+	CharacterState State;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
+	CharacterWeaponState WeaponState;
 
 protected:
 
@@ -55,7 +64,7 @@ public:
  * Functions
  */
 private:
-	
+	virtual void SetState(CharacterState NewState);
 
 protected:
 	virtual void BeginPlay() override;
@@ -67,8 +76,12 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	virtual void LookActionFunc(const FInputActionValue& Value);
+	virtual void LookAction(const FInputActionValue& Value);
 
-	virtual void MoveActionFunc(const FInputActionValue& Value);
+	virtual void MoveActionStart(const FInputActionValue& Value);
+
+	virtual void MoveActionEnd(const FInputActionValue& Value);
+
+	virtual void EquipAction(const FInputActionValue& Value);
 
 };

@@ -4,8 +4,12 @@
 #include "BaseAnimInstance.h"
 
 #include "BaseCharacter.h"
+#include "CharacterEnums.h"
 
-UBaseAnimInstance::UBaseAnimInstance():bIsMoving(false),Character(nullptr)
+UBaseAnimInstance::UBaseAnimInstance():
+Character(nullptr),
+CharacterState(CharacterState::Idle),
+CharacterWeaponState(CharacterWeaponState::Unarmed)
 {
 	
 }
@@ -24,6 +28,10 @@ void UBaseAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		Character = Cast<ABaseCharacter>(TryGetPawnOwner());
 	}
 	if (!Character) return;
+	CharacterState = Character->State;
+	CharacterWeaponState = Character->WeaponState;
 
-	bIsMoving = Character->bIsMoving;
+	UE_LOG(LogTemp,Warning,TEXT("%d"),CharacterState);
+	
+	GEngine->AddOnScreenDebugMessage(1,-1,FColor::Red,FString::Printf(TEXT("%d"),CharacterState));
 }
