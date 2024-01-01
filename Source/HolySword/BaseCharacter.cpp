@@ -3,11 +3,13 @@
 
 #include "BaseCharacter.h"
 
+#include "BaseWeapon.h"
 #include "CharacterEnums.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Engine/SkeletalMeshSocket.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 
@@ -50,6 +52,36 @@ void ABaseCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext,0);
 		}
 	}
+
+	SpawnWeapon();
+}
+
+void ABaseCharacter::SpawnWeapon()
+{
+	if (WeaponClass)
+	{
+		Weapon = GetWorld()->SpawnActor<ABaseWeapon>(WeaponClass);
+	}
+	if (ShieldClass)
+	{
+		Shield = GetWorld()->SpawnActor<ABaseWeapon>(ShieldClass);
+	}
+	if (Weapon)
+	{
+		AttachActorToSocket(Weapon,"weapon_r");
+	}
+	if (Shield)
+	{
+		AttachActorToSocket(Shield,"shield_l");
+	}
+}
+
+void ABaseCharacter::AttachActorToSocket(AActor* Actor, const FName& SocketName)
+{
+	if (!Actor) return;
+	const USkeletalMeshSocket* Socket = GetMesh()->GetSocketByName(SocketName);
+	if (!Socket) return;
+	Socket->AttachActor(Actor,GetMesh());
 }
 
 void ABaseCharacter::Tick(float DeltaTime)

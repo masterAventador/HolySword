@@ -7,6 +7,7 @@
 #include "GameFramework/Character.h"
 #include "BaseCharacter.generated.h"
 
+class ABaseWeapon;
 enum class CharacterWeaponState : uint8;
 enum class CharacterState : uint8;
 class UInputMappingContext;
@@ -54,6 +55,18 @@ private:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
 	CharacterWeaponState WeaponState;
 
+	UPROPERTY(EditAnywhere,meta=(AllowPrivateAccess=true))
+	TSubclassOf<ABaseWeapon> WeaponClass;
+
+	UPROPERTY(VisibleAnywhere,meta=(AllowPrivateAccess=true))
+	ABaseWeapon* Weapon;
+
+	UPROPERTY(EditAnywhere,meta=(AllowPrivateAccess=true))
+	TSubclassOf<ABaseWeapon> ShieldClass;
+
+	UPROPERTY(VisibleAnywhere,meta=(AllowPrivateAccess=true))
+	ABaseWeapon* Shield;
+
 protected:
 
 public:
@@ -69,6 +82,9 @@ private:
 protected:
 	virtual void BeginPlay() override;
 
+	virtual void SpawnWeapon();
+
+	virtual void AttachActorToSocket(AActor* Actor,const FName& SocketName);
 public:
 	ABaseCharacter();
 	
