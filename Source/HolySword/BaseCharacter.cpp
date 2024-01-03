@@ -40,6 +40,26 @@ void ABaseCharacter::SetState(CharacterState NewState)
 	}
 }
 
+void ABaseCharacter::ArmWeapon()
+{
+	if (!Weapon) return;
+	AttachActorToSocket(Weapon,CharacterSocketName::WeaponSocketName);
+	WeaponState = CharacterWeaponState::Armed;
+	
+	if (!Shield) return;
+	AttachActorToSocket(Shield,CharacterSocketName::ShieldSocketName);
+	
+}
+
+void ABaseCharacter::UmarmWeapon()
+{
+	if (!Weapon) return;
+	AttachActorToSocket(Weapon,CharacterSocketName::WeaponBackSocketName);
+	WeaponState = CharacterWeaponState::Unarmed;
+	if (!Shield) return;
+	AttachActorToSocket(Shield,CharacterSocketName::ShieldBackSocketName);
+}
+
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -54,6 +74,7 @@ void ABaseCharacter::BeginPlay()
 	}
 
 	SpawnWeapon();
+	UmarmWeapon();
 }
 
 void ABaseCharacter::SpawnWeapon()
@@ -66,15 +87,6 @@ void ABaseCharacter::SpawnWeapon()
 	{
 		Shield = GetWorld()->SpawnActor<ABaseWeapon>(ShieldClass);
 	}
-	if (Weapon)
-	{
-		AttachActorToSocket(Weapon,"weapon_r");
-	}
-	if (Shield)
-	{
-		AttachActorToSocket(Shield,"shield_l");
-	}
-	WeaponState = CharacterWeaponState::Unarmed;
 }
 
 void ABaseCharacter::AttachActorToSocket(AActor* Actor, const FName& SocketName)

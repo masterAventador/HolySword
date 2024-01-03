@@ -20,3 +20,12 @@ enum class CharacterWeaponState : uint8
 	Max UMETA(DisplayName="DefaultMax")
 };
 
+struct CharacterSocketName
+{
+	inline const static FName WeaponBackSocketName = "weapon_b";
+	inline const static FName ShieldBackSocketName = "Shield_b";
+	inline const static FName WeaponSocketName = "weapon_r";
+	inline const static FName ShieldSocketName = "shield_l";
+};
+
+

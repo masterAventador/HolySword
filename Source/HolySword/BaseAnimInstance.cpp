@@ -14,6 +14,16 @@ CharacterWeaponState(CharacterWeaponState::Unarmed)
 	
 }
 
+void UBaseAnimInstance::AnimNotify_ArmWeapon(UAnimNotify* Notify)
+{
+	if (!Character) return;
+}
+
+void UBaseAnimInstance::AnimNotify_UmarmWeapon(UAnimNotify* Notify)
+{
+	if (!Character) return;
+}
+
 void UBaseAnimInstance::NativeBeginPlay()
 {
 	Super::NativeBeginPlay();

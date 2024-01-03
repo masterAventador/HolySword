@@ -43,6 +43,11 @@ public:
 private:
 	UBaseAnimInstance();
 protected:
+	UFUNCTION()
+	virtual void AnimNotify_ArmWeapon(UAnimNotify* Notify);
+
+	UFUNCTION()
+	virtual void AnimNotify_UmarmWeapon(UAnimNotify* Notify);
 
 public:
 	virtual void NativeBeginPlay() override;

@@ -81,6 +81,10 @@ public:
 private:
 	virtual void SetState(CharacterState NewState);
 
+	virtual void ArmWeapon();
+
+	virtual void UmarmWeapon();
+
 protected:
 	virtual void BeginPlay() override;
 
