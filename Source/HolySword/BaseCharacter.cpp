@@ -74,6 +74,7 @@ void ABaseCharacter::SpawnWeapon()
 	{
 		AttachActorToSocket(Shield,"shield_l");
 	}
+	WeaponState = CharacterWeaponState::Unarmed;
 }
 
 void ABaseCharacter::AttachActorToSocket(AActor* Actor, const FName& SocketName)

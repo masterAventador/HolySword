@@ -67,6 +67,8 @@ private:
 	UPROPERTY(VisibleAnywhere,meta=(AllowPrivateAccess=true))
 	ABaseWeapon* Shield;
 
+	
+
 protected:
 
 public:
