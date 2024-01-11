@@ -17,16 +17,19 @@ CharacterWeaponState(CharacterWeaponState::Unarmed)
 void UBaseAnimInstance::AnimNotify_ArmWeapon(UAnimNotify* Notify)
 {
 	if (!Character) return;
+	Character->ArmWeapon();
 }
 
-void UBaseAnimInstance::AnimNotify_UmarmWeapon(UAnimNotify* Notify)
+void UBaseAnimInstance::AnimNotify_UnarmWeapon(UAnimNotify* Notify)
 {
 	if (!Character) return;
+	Character->UmarmWeapon();
 }
 
 void UBaseAnimInstance::NativeBeginPlay()
 {
 	Super::NativeBeginPlay();
+	OnMontageEnded.AddDynamic(this,&ThisClass::OnMontageEndHandle);
 	Character = Cast<ABaseCharacter>(TryGetPawnOwner());
 }
 
@@ -44,4 +47,9 @@ void UBaseAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	UE_LOG(LogTemp,Warning,TEXT("%d"),CharacterState);
 	
 	GEngine->AddOnScreenDebugMessage(1,-1,FColor::Red,FString::Printf(TEXT("%d"),CharacterState));
+}
+
+void UBaseAnimInstance::OnMontageEndHandle(UAnimMontage* Montage, bool bInterrupted)
+{
+	
 }

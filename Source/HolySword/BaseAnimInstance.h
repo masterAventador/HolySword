@@ -47,10 +47,15 @@ protected:
 	virtual void AnimNotify_ArmWeapon(UAnimNotify* Notify);
 
 	UFUNCTION()
-	virtual void AnimNotify_UmarmWeapon(UAnimNotify* Notify);
+	virtual void AnimNotify_UnarmWeapon(UAnimNotify* Notify);
+
+	UFUNCTION()
+	virtual void OnMontageEndHandle(UAnimMontage* Montage, bool bInterrupted);
 
 public:
 	virtual void NativeBeginPlay() override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+	
+	
 
 };

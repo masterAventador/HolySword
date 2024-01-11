@@ -28,4 +28,9 @@ struct CharacterSocketName
 	inline const static FName ShieldSocketName = "shield_l";
 };
 
+struct CharacterEquipMontageSectionNames
+{
+	inline const static FName Arm = "Arm";
+	inline const static FName Umarm = "Unarm";
+};
 

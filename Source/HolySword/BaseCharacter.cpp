@@ -56,6 +56,7 @@ void ABaseCharacter::UmarmWeapon()
 	if (!Weapon) return;
 	AttachActorToSocket(Weapon,CharacterSocketName::WeaponBackSocketName);
 	WeaponState = CharacterWeaponState::Unarmed;
+	
 	if (!Shield) return;
 	AttachActorToSocket(Shield,CharacterSocketName::ShieldBackSocketName);
 }
@@ -113,8 +114,8 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(IALookAction,ETriggerEvent::Triggered,this,&ThisClass::LookAction);
 		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Triggered,this,&ThisClass::MoveActionStart);
 		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Completed,this,&ThisClass::MoveActionEnd);
+		EnhancedInputComponent->BindAction(IAEquipAction,ETriggerEvent::Started,this,&ThisClass::EquipAction);
 	}
-
 }
 
 void ABaseCharacter::LookAction(const FInputActionValue& Value)
@@ -143,6 +144,14 @@ void ABaseCharacter::MoveActionEnd(const FInputActionValue& Value)
 
 void ABaseCharacter::EquipAction(const FInputActionValue& Value)
 {
-	WeaponState = CharacterWeaponState::Armed;
+	if (!EquipMontage) return;
+	
+	if (WeaponState == CharacterWeaponState::Unarmed)
+	{
+		PlayAnimMontage(EquipMontage,1,CharacterEquipMontageSectionNames::Arm);
+	} else
+	{
+		PlayAnimMontage(EquipMontage,1,CharacterEquipMontageSectionNames::Umarm);
+	}
 }
 

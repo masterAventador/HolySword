@@ -67,6 +67,9 @@ private:
 	UPROPERTY(VisibleAnywhere,meta=(AllowPrivateAccess=true))
 	ABaseWeapon* Shield;
 
+	UPROPERTY(EditDefaultsOnly,meta=(AllowPrivateAccess=true))
+	UAnimMontage* EquipMontage;
+
 	
 
 protected:
