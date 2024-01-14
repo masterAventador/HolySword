@@ -7,6 +7,7 @@
 #include "GameFramework/Character.h"
 #include "BaseCharacter.generated.h"
 
+class UBaseAttributeComponent;
 class ABaseWeapon;
 enum class CharacterWeaponState : uint8;
 enum class CharacterState : uint8;
@@ -28,32 +29,15 @@ class HOLYSWORD_API ABaseCharacter : public ACharacter
  */
 
 private:
+	// Components
 	UPROPERTY(VisibleAnywhere)
     USpringArmComponent* SpringArmComponent;
 
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComponent;
 
-	UPROPERTY(EditAnywhere)
-	UInputMappingContext* DefaultMappingContext;
-	
-	UPROPERTY(EditAnywhere)
-	UInputAction* IALookAction;
-
-	UPROPERTY(EditAnywhere)
-	UInputAction* IAMoveAction;
-
-	UPROPERTY(EditAnywhere)
-	UInputAction* IAEquipAction;
-
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
-	double Velocity;
-
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
-	CharacterState State;
-
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
-	CharacterWeaponState WeaponState;
+	UPROPERTY(VisibleAnywhere)
+	UBaseAttributeComponent* AttributeComponent;
 
 	UPROPERTY(EditAnywhere,meta=(AllowPrivateAccess=true))
 	TSubclassOf<ABaseWeapon> WeaponClass;
@@ -67,15 +51,32 @@ private:
 	UPROPERTY(VisibleAnywhere,meta=(AllowPrivateAccess=true))
 	ABaseWeapon* Shield;
 
+	// States
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
+	double Velocity;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
+	CharacterState State;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
+	CharacterWeaponState WeaponState;
+
+	// Montages
 	UPROPERTY(EditDefaultsOnly,meta=(AllowPrivateAccess=true))
 	UAnimMontage* EquipMontage;
 
+	// Keyboard Actions
+	UPROPERTY(EditAnywhere)
+	UInputMappingContext* DefaultMappingContext;
 	
+	UPROPERTY(EditAnywhere)
+	UInputAction* IALookAction;
 
-protected:
+	UPROPERTY(EditAnywhere)
+	UInputAction* IAMoveAction;
 
-public:
-	
+	UPROPERTY(EditAnywhere)
+	UInputAction* IAEquipAction;
 	
 
 /*

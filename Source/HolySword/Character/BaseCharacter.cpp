@@ -3,7 +3,8 @@
 
 #include "BaseCharacter.h"
 
-#include "BaseWeapon.h"
+#include "BaseAttributeComponent.h"
+#include "HolySword/Weapon/BaseWeapon.h"
 #include "CharacterEnums.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
@@ -29,6 +30,8 @@ ABaseCharacter::ABaseCharacter():State(CharacterState::Idle),WeaponState(Charact
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.f,500.f,0.f);
+
+	AttributeComponent = CreateDefaultSubobject<UBaseAttributeComponent>("Attributes");
 
 }
 
@@ -148,10 +151,10 @@ void ABaseCharacter::EquipAction(const FInputActionValue& Value)
 	
 	if (WeaponState == CharacterWeaponState::Unarmed)
 	{
-		PlayAnimMontage(EquipMontage,1,CharacterEquipMontageSectionNames::Arm);
+		PlayAnimMontage(EquipMontage,1,CharacterMontageSectionName::Arm);
 	} else
 	{
-		PlayAnimMontage(EquipMontage,1,CharacterEquipMontageSectionNames::Umarm);
+		PlayAnimMontage(EquipMontage,1,CharacterMontageSectionName::Umarm);
 	}
 }
 
