@@ -26,10 +26,10 @@ private:
 	ABaseCharacter* Character;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
-	CharacterState CharacterState;
+	CharacterState State;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
-	CharacterWeaponState CharacterWeaponState;
+	CharacterWeaponState WeaponState;
 	
 protected:
 

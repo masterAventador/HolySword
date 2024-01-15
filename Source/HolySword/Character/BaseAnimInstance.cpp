@@ -8,8 +8,8 @@
 
 UBaseAnimInstance::UBaseAnimInstance():
 Character(nullptr),
-CharacterState(CharacterState::Idle),
-CharacterWeaponState(CharacterWeaponState::Unarmed)
+State(CharacterState::Idle),
+WeaponState(CharacterWeaponState::Unarmed)
 {
 	
 }
@@ -41,12 +41,12 @@ void UBaseAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		Character = Cast<ABaseCharacter>(TryGetPawnOwner());
 	}
 	if (!Character) return;
-	CharacterState = Character->State;
-	CharacterWeaponState = Character->WeaponState;
+	State = Character->State;
+	WeaponState = Character->WeaponState;
 
-	UE_LOG(LogTemp,Warning,TEXT("%d"),CharacterState);
+	UE_LOG(LogTemp,Warning,TEXT("%d"),State);
 	
-	GEngine->AddOnScreenDebugMessage(1,-1,FColor::Red,FString::Printf(TEXT("%d"),CharacterState));
+	GEngine->AddOnScreenDebugMessage(1,-1,FColor::Red,FString::Printf(TEXT("%d"),State));
 }
 
 void UBaseAnimInstance::OnMontageEndHandle(UAnimMontage* Montage, bool bInterrupted)
