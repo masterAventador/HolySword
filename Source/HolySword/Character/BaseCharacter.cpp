@@ -30,6 +30,7 @@ ABaseCharacter::ABaseCharacter():State(CharacterState::Idle),WeaponState(Charact
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.f,500.f,0.f);
+	GetCharacterMovement()->JumpZVelocity = 600.f;
 
 	AttributeComponent = CreateDefaultSubobject<UBaseAttributeComponent>("Attributes");
 
@@ -115,9 +116,10 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	if (EnhancedInputComponent)
 	{
 		EnhancedInputComponent->BindAction(IALookAction,ETriggerEvent::Triggered,this,&ThisClass::LookAction);
-		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Triggered,this,&ThisClass::MoveActionStart);
+		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Triggered,this,&ThisClass::MoveActionTriggered);
 		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Completed,this,&ThisClass::MoveActionEnd);
 		EnhancedInputComponent->BindAction(IAEquipAction,ETriggerEvent::Started,this,&ThisClass::EquipAction);
+		EnhancedInputComponent->BindAction(IAJumpAction,ETriggerEvent::Started,this,&ThisClass::JumpAction);
 	}
 }
 
@@ -128,7 +130,7 @@ void ABaseCharacter::LookAction(const FInputActionValue& Value)
 	AddControllerPitchInput(LookVector.Y);
 }
 
-void ABaseCharacter::MoveActionStart(const FInputActionValue& Value)
+void ABaseCharacter::MoveActionTriggered(const FInputActionValue& Value)
 {
 	SetState(CharacterState::Run);
 	
@@ -156,5 +158,10 @@ void ABaseCharacter::EquipAction(const FInputActionValue& Value)
 	{
 		PlayAnimMontage(EquipMontage,1,CharacterMontageSectionName::Umarm);
 	}
+}
+
+void ABaseCharacter::JumpAction(const FInputActionValue& Value)
+{
+	Super::Jump();
 }
 

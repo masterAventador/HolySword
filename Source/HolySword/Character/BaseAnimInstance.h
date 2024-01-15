@@ -30,7 +30,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
 	CharacterWeaponState WeaponState;
-	
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
+	bool bIsJumping;
+
 protected:
 
 public:

@@ -2,14 +2,15 @@
 
 
 #include "BaseAnimInstance.h"
-
 #include "BaseCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "CharacterEnums.h"
 
 UBaseAnimInstance::UBaseAnimInstance():
 Character(nullptr),
 State(CharacterState::Idle),
-WeaponState(CharacterWeaponState::Unarmed)
+WeaponState(CharacterWeaponState::Unarmed),
+bIsJumping(false)
 {
 	
 }
@@ -41,12 +42,16 @@ void UBaseAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		Character = Cast<ABaseCharacter>(TryGetPawnOwner());
 	}
 	if (!Character) return;
+	
 	State = Character->State;
 	WeaponState = Character->WeaponState;
+	bIsJumping = Character->GetMovementComponent()->IsFalling();
+	
 
 	UE_LOG(LogTemp,Warning,TEXT("%d"),State);
 	
-	GEngine->AddOnScreenDebugMessage(1,-1,FColor::Red,FString::Printf(TEXT("%d"),State));
+	GEngine->AddOnScreenDebugMessage(1,-1,FColor::Red,FString::Printf(TEXT("%f"),Character->GetMovementComponent()->Velocity.Z));
+	GEngine->AddOnScreenDebugMessage(2,-1,FColor::Orange,FString::Printf(L"isRising = %d",bIsJumping));
 }
 
 void UBaseAnimInstance::OnMontageEndHandle(UAnimMontage* Montage, bool bInterrupted)

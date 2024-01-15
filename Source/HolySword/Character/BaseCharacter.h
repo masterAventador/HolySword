@@ -62,7 +62,7 @@ private:
 	CharacterWeaponState WeaponState;
 
 	// Montages
-	UPROPERTY(EditDefaultsOnly,meta=(AllowPrivateAccess=true))
+	UPROPERTY(EditDefaultsOnly)
 	UAnimMontage* EquipMontage;
 
 	// Keyboard Actions
@@ -77,6 +77,10 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	UInputAction* IAEquipAction;
+
+	UPROPERTY(EditAnywhere)
+	UInputAction* IAJumpAction;
+	
 	
 
 /*
@@ -104,10 +108,12 @@ public:
 
 	virtual void LookAction(const FInputActionValue& Value);
 
-	virtual void MoveActionStart(const FInputActionValue& Value);
+	virtual void MoveActionTriggered(const FInputActionValue& Value);
 
 	virtual void MoveActionEnd(const FInputActionValue& Value);
 
 	virtual void EquipAction(const FInputActionValue& Value);
+
+	virtual void JumpAction(const FInputActionValue& Value);
 
 };
