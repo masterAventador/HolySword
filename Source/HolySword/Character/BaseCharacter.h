@@ -39,16 +39,16 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UBaseAttributeComponent* AttributeComponent;
 
-	UPROPERTY(EditAnywhere,meta=(AllowPrivateAccess=true))
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<ABaseWeapon> WeaponClass;
 
-	UPROPERTY(VisibleAnywhere,meta=(AllowPrivateAccess=true))
+	UPROPERTY(VisibleAnywhere)
 	ABaseWeapon* Weapon;
 
-	UPROPERTY(EditAnywhere,meta=(AllowPrivateAccess=true))
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<ABaseWeapon> ShieldClass;
 
-	UPROPERTY(VisibleAnywhere,meta=(AllowPrivateAccess=true))
+	UPROPERTY(VisibleAnywhere)
 	ABaseWeapon* Shield;
 
 	// States
@@ -64,6 +64,9 @@ private:
 	// Montages
 	UPROPERTY(EditDefaultsOnly)
 	UAnimMontage* EquipMontage;
+
+	UPROPERTY(EditDefaultsOnly)
+	UAnimMontage* GetHitMontage;
 
 	// Keyboard Actions
 	UPROPERTY(EditAnywhere)
@@ -99,6 +102,8 @@ protected:
 	virtual void SpawnWeapon();
 
 	virtual void AttachActorToSocket(AActor* Actor,const FName& SocketName);
+
+	virtual float PlayAnimMontage(UAnimMontage* AnimMontage, FName SectionName);
 public:
 	ABaseCharacter();
 	

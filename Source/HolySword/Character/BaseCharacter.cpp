@@ -102,6 +102,12 @@ void ABaseCharacter::AttachActorToSocket(AActor* Actor, const FName& SocketName)
 	Socket->AttachActor(Actor,GetMesh());
 }
 
+float ABaseCharacter::PlayAnimMontage(UAnimMontage* AnimMontage, FName SectionName)
+{
+	if (!AnimMontage) return 0;
+	return Super::PlayAnimMontage(AnimMontage,1,SectionName);
+}
+
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -149,14 +155,12 @@ void ABaseCharacter::MoveActionEnd(const FInputActionValue& Value)
 
 void ABaseCharacter::EquipAction(const FInputActionValue& Value)
 {
-	if (!EquipMontage) return;
-	
 	if (WeaponState == CharacterWeaponState::Unarmed)
 	{
-		PlayAnimMontage(EquipMontage,1,CharacterMontageSectionName::Arm);
+		PlayAnimMontage(EquipMontage,CharacterMontageSectionName::Arm);
 	} else
 	{
-		PlayAnimMontage(EquipMontage,1,CharacterMontageSectionName::Umarm);
+		PlayAnimMontage(EquipMontage,CharacterMontageSectionName::Umarm);
 	}
 }
 

@@ -30,8 +30,15 @@ struct CharacterSocketName
 
 struct CharacterMontageSectionName
 {
+	// AM_Equip
 	inline const static FName Arm = "Arm";
 	inline const static FName Umarm = "Unarm";
+
+	// AM_GetHit
+	inline const static FName GetHit_F = "GetHit_F";
+	inline const static FName GetHit_B = "GetHit_B";
+	inline const static FName GetHit_L = "GetHit_L";
+	inline const static FName GetHit_R = "GetHit_R";
 };
 
 struct CharacterDefaultValue
