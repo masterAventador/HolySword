@@ -68,6 +68,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UAnimMontage* GetHitMontage;
 
+	UPROPERTY(EditDefaultsOnly)
+	UAnimMontage* ComboMontage;
+
 	// Keyboard Actions
 	UPROPERTY(EditAnywhere)
 	UInputMappingContext* DefaultMappingContext;

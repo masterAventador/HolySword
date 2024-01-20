@@ -52,7 +52,6 @@ void ABaseCharacter::ArmWeapon()
 	
 	if (!Shield) return;
 	AttachActorToSocket(Shield,CharacterSocketName::ShieldSocketName);
-	
 }
 
 void ABaseCharacter::UmarmWeapon()
