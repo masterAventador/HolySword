@@ -3,6 +3,7 @@
 
 #include "BaseCharacter.h"
 
+#include "BaseAnimInstance.h"
 #include "BaseAttributeComponent.h"
 #include "HolySword/Weapon/BaseWeapon.h"
 #include "CharacterEnums.h"
@@ -36,6 +37,26 @@ ABaseCharacter::ABaseCharacter():State(CharacterState::Idle),WeaponState(Charact
 
 }
 
+void ABaseCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	AnimInstance = Cast<UBaseAnimInstance>(GetMesh()->GetAnimInstance());
+	
+	AddControllerPitchInput(15.f);
+
+	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->AddMappingContext(DefaultMappingContext,0);
+		}
+	}
+
+	SpawnWeapon();
+	UmarmWeapon();
+}
+
 void ABaseCharacter::SetState(CharacterState NewState)
 {
 	if (State != NewState)
@@ -64,21 +85,10 @@ void ABaseCharacter::UmarmWeapon()
 	AttachActorToSocket(Shield,CharacterSocketName::ShieldBackSocketName);
 }
 
-void ABaseCharacter::BeginPlay()
+void ABaseCharacter::SetWeaponCollisionEnabled(bool bEnabled)
 {
-	Super::BeginPlay();
-	AddControllerPitchInput(15.f);
-
-	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
-	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-		{
-			Subsystem->AddMappingContext(DefaultMappingContext,0);
-		}
-	}
-
-	SpawnWeapon();
-	UmarmWeapon();
+	if (!Weapon) return;
+	Weapon->SetCollisionEnabled(bEnabled);
 }
 
 void ABaseCharacter::SpawnWeapon()
@@ -125,6 +135,7 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Completed,this,&ThisClass::MoveActionEnd);
 		EnhancedInputComponent->BindAction(IAEquipAction,ETriggerEvent::Started,this,&ThisClass::EquipAction);
 		EnhancedInputComponent->BindAction(IAJumpAction,ETriggerEvent::Started,this,&ThisClass::JumpAction);
+		EnhancedInputComponent->BindAction(IAAttackAction,ETriggerEvent::Started,this,&ThisClass::AttackAction);
 	}
 }
 
@@ -166,5 +177,12 @@ void ABaseCharacter::EquipAction(const FInputActionValue& Value)
 void ABaseCharacter::JumpAction(const FInputActionValue& Value)
 {
 	Super::Jump();
+}
+
+void ABaseCharacter::AttackAction(const FInputActionValue& Value)
+{
+	if (!TestComboMontage) return;
+	if (AnimInstance->Montage_IsPlaying(TestComboMontage)) return;
+	PlayAnimMontage(TestComboMontage,"Combo01");
 }
 

@@ -45,7 +45,18 @@ public:
 	
 private:
 	UBaseAnimInstance();
+
 protected:
+
+	
+public:
+	virtual void NativeBeginPlay() override;
+	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+
+protected:
+	UFUNCTION()
+	virtual void OnMontageEndHandle(UAnimMontage* Montage, bool bInterrupted);
+	
 	UFUNCTION()
 	virtual void AnimNotify_ArmWeapon(UAnimNotify* Notify);
 
@@ -53,12 +64,9 @@ protected:
 	virtual void AnimNotify_UnarmWeapon(UAnimNotify* Notify);
 
 	UFUNCTION()
-	virtual void OnMontageEndHandle(UAnimMontage* Montage, bool bInterrupted);
+	virtual void AnimNotify_EnableWeaponCollision(UAnimNotify* Notify);
 
-public:
-	virtual void NativeBeginPlay() override;
-	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
-	
-	
+	UFUNCTION()
+	virtual void AnimNotify_DisableWeaponCollision(UAnimNotify* Notify);
 
 };

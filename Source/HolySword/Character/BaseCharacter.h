@@ -31,6 +31,9 @@ class HOLYSWORD_API ABaseCharacter : public ACharacter
 private:
 	// Components
 	UPROPERTY(VisibleAnywhere)
+	UBaseAnimInstance* AnimInstance;
+	
+	UPROPERTY(VisibleAnywhere)
     USpringArmComponent* SpringArmComponent;
 
 	UPROPERTY(VisibleAnywhere)
@@ -69,7 +72,7 @@ private:
 	UAnimMontage* GetHitMontage;
 
 	UPROPERTY(EditDefaultsOnly)
-	UAnimMontage* ComboMontage;
+	UAnimMontage* TestComboMontage;
 
 	// Keyboard Actions
 	UPROPERTY(EditAnywhere)
@@ -86,12 +89,29 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	UInputAction* IAJumpAction;
+
+	UPROPERTY(EditAnywhere)
+	UInputAction* IAAttackAction;
 	
 	
 
 /*
  * Functions
  */
+
+protected:
+	virtual void BeginPlay() override;
+
+	virtual void SpawnWeapon();
+	
+public:
+	ABaseCharacter();
+	
+	virtual void Tick(float DeltaTime) override;
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+	
 private:
 	virtual void SetState(CharacterState NewState);
 
@@ -99,21 +119,14 @@ private:
 
 	virtual void UmarmWeapon();
 
+	virtual void SetWeaponCollisionEnabled(bool bEnabled);
+
 protected:
-	virtual void BeginPlay() override;
-
-	virtual void SpawnWeapon();
-
 	virtual void AttachActorToSocket(AActor* Actor,const FName& SocketName);
 
 	virtual float PlayAnimMontage(UAnimMontage* AnimMontage, FName SectionName);
 public:
-	ABaseCharacter();
 	
-	virtual void Tick(float DeltaTime) override;
-
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 	virtual void LookAction(const FInputActionValue& Value);
 
 	virtual void MoveActionTriggered(const FInputActionValue& Value);
@@ -123,5 +136,7 @@ public:
 	virtual void EquipAction(const FInputActionValue& Value);
 
 	virtual void JumpAction(const FInputActionValue& Value);
+
+	virtual void AttackAction(const FInputActionValue& Value);
 
 };

@@ -15,18 +15,6 @@ bIsJumping(false)
 	
 }
 
-void UBaseAnimInstance::AnimNotify_ArmWeapon(UAnimNotify* Notify)
-{
-	if (!Character) return;
-	Character->ArmWeapon();
-}
-
-void UBaseAnimInstance::AnimNotify_UnarmWeapon(UAnimNotify* Notify)
-{
-	if (!Character) return;
-	Character->UmarmWeapon();
-}
-
 void UBaseAnimInstance::NativeBeginPlay()
 {
 	Super::NativeBeginPlay();
@@ -58,3 +46,30 @@ void UBaseAnimInstance::OnMontageEndHandle(UAnimMontage* Montage, bool bInterrup
 {
 	
 }
+
+void UBaseAnimInstance::AnimNotify_ArmWeapon(UAnimNotify* Notify)
+{
+	if (!Character) return;
+	Character->ArmWeapon();
+}
+
+void UBaseAnimInstance::AnimNotify_UnarmWeapon(UAnimNotify* Notify)
+{
+	if (!Character) return;
+	Character->UmarmWeapon();
+}
+
+void UBaseAnimInstance::AnimNotify_EnableWeaponCollision(UAnimNotify* Notify)
+{
+	if (!Character) return;
+	Character->SetWeaponCollisionEnabled(true);
+	
+}
+
+void UBaseAnimInstance::AnimNotify_DisableWeaponCollision(UAnimNotify* Notify)
+{
+	if (!Character) return;
+	Character->SetWeaponCollisionEnabled(false);
+}
+
+
