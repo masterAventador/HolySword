@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "BaseAttributeComponent.generated.h"
+#include "AttributeComponent.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class HOLYSWORD_API UBaseAttributeComponent : public UActorComponent
+class HOLYSWORD_API UAttributeComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
@@ -29,7 +29,7 @@ protected:
 	virtual void BeginPlay() override;
 	
 public:	
-	UBaseAttributeComponent();
+	UAttributeComponent();
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	FORCEINLINE float GetHealthPercent() const { return Health/MaxHealth; }

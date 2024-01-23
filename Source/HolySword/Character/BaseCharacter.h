@@ -7,7 +7,7 @@
 #include "GameFramework/Character.h"
 #include "BaseCharacter.generated.h"
 
-class UBaseAttributeComponent;
+class UAttributeComponent;
 class ABaseWeapon;
 enum class CharacterWeaponState : uint8;
 enum class CharacterState : uint8;
@@ -40,7 +40,7 @@ private:
 	UCameraComponent* CameraComponent;
 
 	UPROPERTY(VisibleAnywhere)
-	UBaseAttributeComponent* AttributeComponent;
+	UAttributeComponent* AttributeComponent;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<ABaseWeapon> WeaponClass;

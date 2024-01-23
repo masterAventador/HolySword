@@ -4,7 +4,7 @@
 #include "BaseCharacter.h"
 
 #include "BaseAnimInstance.h"
-#include "BaseAttributeComponent.h"
+#include "AttributeComponent.h"
 #include "HolySword/Weapon/BaseWeapon.h"
 #include "CharacterEnums.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -33,7 +33,7 @@ ABaseCharacter::ABaseCharacter():State(CharacterState::Idle),WeaponState(Charact
 	GetCharacterMovement()->RotationRate = FRotator(0.f,500.f,0.f);
 	GetCharacterMovement()->JumpZVelocity = 600.f;
 
-	AttributeComponent = CreateDefaultSubobject<UBaseAttributeComponent>("Attributes");
+	AttributeComponent = CreateDefaultSubobject<UAttributeComponent>("Attributes");
 
 }
 

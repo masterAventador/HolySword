@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BaseAttributeComponent.h"
+#include "AttributeComponent.h"
 #include "CharacterEnums.h"
 
-UBaseAttributeComponent::UBaseAttributeComponent():
+UAttributeComponent::UAttributeComponent():
 Health(CharacterDefaultValue::Health),
 MaxHealth(CharacterDefaultValue::Health),
 Stamina(CharacterDefaultValue::Stamina),
@@ -15,7 +15,7 @@ MaxStamina(CharacterDefaultValue::Stamina)
 }
 
 
-void UBaseAttributeComponent::BeginPlay()
+void UAttributeComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -23,18 +23,18 @@ void UBaseAttributeComponent::BeginPlay()
 }
 
 
-void UBaseAttributeComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UAttributeComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 }
 
-void UBaseAttributeComponent::ReceiveDamage(float Damage)
+void UAttributeComponent::ReceiveDamage(float Damage)
 {
 	Health = FMath::Clamp(Health - Damage, 0.f, MaxHealth);
 }
 
-bool UBaseAttributeComponent::IsAlive() const
+bool UAttributeComponent::IsAlive() const
 {
 	return Health > 0.f;
 }
