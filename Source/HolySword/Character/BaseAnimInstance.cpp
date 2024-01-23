@@ -2,7 +2,7 @@
 
 
 #include "BaseAnimInstance.h"
-#include "BaseCharacter.h"
+#include "Hero.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "CharacterEnums.h"
 
@@ -19,7 +19,7 @@ void UBaseAnimInstance::NativeBeginPlay()
 {
 	Super::NativeBeginPlay();
 	OnMontageEnded.AddDynamic(this,&ThisClass::OnMontageEndHandle);
-	Character = Cast<ABaseCharacter>(TryGetPawnOwner());
+	Character = Cast<AHero>(TryGetPawnOwner());
 }
 
 void UBaseAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
@@ -27,7 +27,7 @@ void UBaseAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	Super::NativeUpdateAnimation(DeltaSeconds);
 	if (!Character)
 	{
-		Character = Cast<ABaseCharacter>(TryGetPawnOwner());
+		Character = Cast<AHero>(TryGetPawnOwner());
 	}
 	if (!Character) return;
 	

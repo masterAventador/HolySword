@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BaseCharacter.h"
+#include "Hero.h"
 
 #include "BaseAnimInstance.h"
 #include "AttributeComponent.h"
@@ -15,7 +15,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 
 
-ABaseCharacter::ABaseCharacter():State(CharacterState::Idle),WeaponState(CharacterWeaponState::Unarmed)
+AHero::AHero():State(CharacterState::Idle),WeaponState(CharacterWeaponState::Unarmed)
 {
 
 	bUseControllerRotationPitch = bUseControllerRotationRoll = bUseControllerRotationYaw = false;
@@ -37,7 +37,7 @@ ABaseCharacter::ABaseCharacter():State(CharacterState::Idle),WeaponState(Charact
 
 }
 
-void ABaseCharacter::BeginPlay()
+void AHero::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -57,7 +57,7 @@ void ABaseCharacter::BeginPlay()
 	UmarmWeapon();
 }
 
-void ABaseCharacter::SetState(CharacterState NewState)
+void AHero::SetState(CharacterState NewState)
 {
 	if (State != NewState)
 	{
@@ -65,7 +65,7 @@ void ABaseCharacter::SetState(CharacterState NewState)
 	}
 }
 
-void ABaseCharacter::ArmWeapon()
+void AHero::ArmWeapon()
 {
 	if (!Weapon) return;
 	AttachActorToSocket(Weapon,CharacterSocketName::WeaponSocketName);
@@ -75,7 +75,7 @@ void ABaseCharacter::ArmWeapon()
 	AttachActorToSocket(Shield,CharacterSocketName::ShieldSocketName);
 }
 
-void ABaseCharacter::UmarmWeapon()
+void AHero::UmarmWeapon()
 {
 	if (!Weapon) return;
 	AttachActorToSocket(Weapon,CharacterSocketName::WeaponBackSocketName);
@@ -85,13 +85,13 @@ void ABaseCharacter::UmarmWeapon()
 	AttachActorToSocket(Shield,CharacterSocketName::ShieldBackSocketName);
 }
 
-void ABaseCharacter::SetWeaponCollisionEnabled(bool bEnabled)
+void AHero::SetWeaponCollisionEnabled(bool bEnabled)
 {
 	if (!Weapon) return;
 	Weapon->SetCollisionEnabled(bEnabled);
 }
 
-void ABaseCharacter::SpawnWeapon()
+void AHero::SpawnWeapon()
 {
 	if (WeaponClass)
 	{
@@ -103,7 +103,7 @@ void ABaseCharacter::SpawnWeapon()
 	}
 }
 
-void ABaseCharacter::AttachActorToSocket(AActor* Actor, const FName& SocketName)
+void AHero::AttachActorToSocket(AActor* Actor, const FName& SocketName)
 {
 	if (!Actor) return;
 	const USkeletalMeshSocket* Socket = GetMesh()->GetSocketByName(SocketName);
@@ -111,19 +111,19 @@ void ABaseCharacter::AttachActorToSocket(AActor* Actor, const FName& SocketName)
 	Socket->AttachActor(Actor,GetMesh());
 }
 
-float ABaseCharacter::PlayAnimMontage(UAnimMontage* AnimMontage, FName SectionName)
+float AHero::PlayAnimMontage(UAnimMontage* AnimMontage, FName SectionName)
 {
 	if (!AnimMontage) return 0;
 	return Super::PlayAnimMontage(AnimMontage,1,SectionName);
 }
 
-void ABaseCharacter::Tick(float DeltaTime)
+void AHero::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	Velocity = GetVelocity().Size2D();
 }
 
-void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
@@ -139,14 +139,14 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	}
 }
 
-void ABaseCharacter::LookAction(const FInputActionValue& Value)
+void AHero::LookAction(const FInputActionValue& Value)
 {
 	FVector2D LookVector = Value.Get<FVector2D>();
 	AddControllerYawInput(LookVector.X);
 	AddControllerPitchInput(LookVector.Y);
 }
 
-void ABaseCharacter::MoveActionTriggered(const FInputActionValue& Value)
+void AHero::MoveActionTriggered(const FInputActionValue& Value)
 {
 	SetState(CharacterState::Run);
 	
@@ -158,12 +158,12 @@ void ABaseCharacter::MoveActionTriggered(const FInputActionValue& Value)
 	AddMovementInput(RightVector,MoveVector.Y);
 }
 
-void ABaseCharacter::MoveActionEnd(const FInputActionValue& Value)
+void AHero::MoveActionEnd(const FInputActionValue& Value)
 {
 	SetState(CharacterState::Idle);
 }
 
-void ABaseCharacter::EquipAction(const FInputActionValue& Value)
+void AHero::EquipAction(const FInputActionValue& Value)
 {
 	if (WeaponState == CharacterWeaponState::Unarmed)
 	{
@@ -174,12 +174,12 @@ void ABaseCharacter::EquipAction(const FInputActionValue& Value)
 	}
 }
 
-void ABaseCharacter::JumpAction(const FInputActionValue& Value)
+void AHero::JumpAction(const FInputActionValue& Value)
 {
 	Super::Jump();
 }
 
-void ABaseCharacter::AttackAction(const FInputActionValue& Value)
+void AHero::AttackAction(const FInputActionValue& Value)
 {
 	if (!TestComboMontage) return;
 	if (AnimInstance->Montage_IsPlaying(TestComboMontage)) return;

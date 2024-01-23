@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
 #include "GameFramework/Character.h"
-#include "BaseCharacter.generated.h"
+#include "Hero.generated.h"
 
 class UAttributeComponent;
 class ABaseWeapon;
@@ -19,7 +19,7 @@ class USpringArmComponent;
 
 
 UCLASS()
-class HOLYSWORD_API ABaseCharacter : public ACharacter
+class HOLYSWORD_API AHero : public ACharacter
 {
 	GENERATED_BODY()
 	friend class UBaseAnimInstance;
@@ -105,7 +105,7 @@ protected:
 	virtual void SpawnWeapon();
 	
 public:
-	ABaseCharacter();
+	AHero();
 	
 	virtual void Tick(float DeltaTime) override;
 

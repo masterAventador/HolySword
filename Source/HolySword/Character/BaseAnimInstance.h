@@ -8,7 +8,7 @@
 
 enum class CharacterWeaponState : uint8;
 enum class CharacterState : uint8;
-class ABaseCharacter;
+class AHero;
 /**
  * 
  */
@@ -23,7 +23,7 @@ class HOLYSWORD_API UBaseAnimInstance : public UAnimInstance
 
 private:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
-	ABaseCharacter* Character;
+	AHero* Character;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess=true))
 	CharacterState State;
