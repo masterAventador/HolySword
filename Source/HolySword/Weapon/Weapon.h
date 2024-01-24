@@ -4,12 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "BaseWeapon.generated.h"
+#include "Weapon.generated.h"
 
 class UBoxComponent;
 
 UCLASS()
-class HOLYSWORD_API ABaseWeapon : public AActor
+class HOLYSWORD_API AWeapon : public AActor
 {
 	GENERATED_BODY()
 
@@ -36,7 +36,7 @@ protected:
 	virtual void BeginPlay() override;
 	
 public:	
-	ABaseWeapon();
+	AWeapon();
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetCollisionEnabled(bool bEnabled);
 	

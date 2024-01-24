@@ -8,7 +8,7 @@
 #include "Hero.generated.h"
 
 class UAttributeComponent;
-class ABaseWeapon;
+class AWeapon;
 enum class CharacterWeaponState : uint8;
 enum class CharacterState : uint8;
 class UInputMappingContext;
@@ -43,16 +43,16 @@ private:
 	UAttributeComponent* AttributeComponent;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<ABaseWeapon> WeaponClass;
+	TSubclassOf<AWeapon> WeaponClass;
 
 	UPROPERTY(VisibleAnywhere)
-	ABaseWeapon* Weapon;
+	AWeapon* Weapon;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<ABaseWeapon> ShieldClass;
+	TSubclassOf<AWeapon> ShieldClass;
 
 	UPROPERTY(VisibleAnywhere)
-	ABaseWeapon* Shield;
+	AWeapon* Shield;
 
 	// States
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,meta=(AllowPrivateAccess=true))

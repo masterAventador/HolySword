@@ -5,7 +5,7 @@
 
 #include "BaseAnimInstance.h"
 #include "AttributeComponent.h"
-#include "HolySword/Weapon/BaseWeapon.h"
+#include "HolySword/Weapon/Weapon.h"
 #include "HeroEnums.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
@@ -95,11 +95,11 @@ void AHero::SpawnWeapon()
 {
 	if (WeaponClass)
 	{
-		Weapon = GetWorld()->SpawnActor<ABaseWeapon>(WeaponClass);
+		Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
 	}
 	if (ShieldClass)
 	{
-		Shield = GetWorld()->SpawnActor<ABaseWeapon>(ShieldClass);
+		Shield = GetWorld()->SpawnActor<AWeapon>(ShieldClass);
 	}
 }
 
