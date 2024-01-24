@@ -4,7 +4,7 @@
 #include "BaseAnimInstance.h"
 #include "Hero.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "CharacterEnums.h"
+#include "HeroEnums.h"
 
 UBaseAnimInstance::UBaseAnimInstance():
 Character(nullptr),

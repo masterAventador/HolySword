@@ -6,7 +6,7 @@
 #include "BaseAnimInstance.h"
 #include "AttributeComponent.h"
 #include "HolySword/Weapon/BaseWeapon.h"
-#include "CharacterEnums.h"
+#include "HeroEnums.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "EnhancedInputComponent.h"

@@ -2,7 +2,7 @@
 
 
 #include "AttributeComponent.h"
-#include "CharacterEnums.h"
+#include "HeroEnums.h"
 
 UAttributeComponent::UAttributeComponent():
 Health(CharacterDefaultValue::Health),
