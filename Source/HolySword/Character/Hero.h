@@ -125,8 +125,8 @@ protected:
 	virtual void AttachActorToSocket(AActor* Actor,const FName& SocketName);
 
 	virtual float PlayAnimMontage(UAnimMontage* AnimMontage, FName SectionName);
-public:
 	
+public:
 	virtual void LookAction(const FInputActionValue& Value);
 
 	virtual void MoveActionTriggered(const FInputActionValue& Value);
