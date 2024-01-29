@@ -34,9 +34,9 @@ public:
 
 	FORCEINLINE float GetHealthPercent() const { return Health/MaxHealth; }
 	FORCEINLINE float GetStaminaPercent() const { return Stamina/MaxStamina; }
-
+	FORCEINLINE bool IsAlive() const { return Health > 0.f; };
 	void ReceiveDamage(float Damage);
-	bool IsAlive() const;
+	
 
 
 };
