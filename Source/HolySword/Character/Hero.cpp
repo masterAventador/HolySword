@@ -19,6 +19,8 @@ AHero::AHero():State(CharacterState::Idle),WeaponState(CharacterWeaponState::Una
 {
 
 	bUseControllerRotationPitch = bUseControllerRotationRoll = bUseControllerRotationYaw = false;
+
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	
 	PrimaryActorTick.bCanEverTick = true;
 	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
