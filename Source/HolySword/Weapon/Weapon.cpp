@@ -16,7 +16,9 @@ AWeapon::AWeapon()
 
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>("CollisionBox");
 	BoxComponent->SetupAttachment(GetRootComponent());
+	BoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	BoxComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
+	BoxComponent->SetCollisionResponseToChannel(ECC_Pawn,ECR_Overlap);
 }
 
 void AWeapon::BeginPlay()
