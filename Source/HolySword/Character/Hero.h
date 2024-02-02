@@ -99,6 +99,7 @@ private:
  * Functions
  */
 
+	// override functions
 protected:
 	virtual void BeginPlay() override;
 
@@ -111,7 +112,7 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-	
+	// custom functions
 private:
 	virtual void SetState(CharacterState NewState);
 

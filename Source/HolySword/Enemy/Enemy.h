@@ -11,14 +11,39 @@ class HOLYSWORD_API AEnemy : public ACharacter
 {
 	GENERATED_BODY()
 
+/*
+ * Variables
+ */
+
+private:
+	UPROPERTY(EditDefaultsOnly)
+	UAnimMontage* GetHitMontage;
+
+	
+/*
+ * Functions
+ */
+
+	// override functions	
+protected:
+	virtual void BeginPlay() override;
+	
 public:
 	AEnemy();
 
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+
+
+	// custom functions
+
+private:
 
 protected:
-	virtual void BeginPlay() override;
-
+	virtual void PlayAnimMontage(UAnimMontage* AnimMontage,FName SectionName);
+	
+public:
+	
+	
 };

@@ -28,5 +28,10 @@ void AEnemy::BeginPlay()
 	
 }
 
+void AEnemy::PlayAnimMontage(UAnimMontage* AnimMontage, FName SectionName)
+{
+	if (!AnimMontage) return;
+	Super::PlayAnimMontage(AnimMontage,1,SectionName);
+}
 
 

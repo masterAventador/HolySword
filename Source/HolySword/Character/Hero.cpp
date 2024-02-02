@@ -6,7 +6,7 @@
 #include "BaseAnimInstance.h"
 #include "AttributeComponent.h"
 #include "HolySword/Weapon/Weapon.h"
-#include "HeroEnums.h"
+#include "Enums.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "EnhancedInputComponent.h"
@@ -169,10 +169,10 @@ void AHero::EquipAction(const FInputActionValue& Value)
 {
 	if (WeaponState == CharacterWeaponState::Unarmed)
 	{
-		PlayAnimMontage(EquipMontage,CharacterMontageSectionName::Arm);
+		PlayAnimMontage(EquipMontage,MontageSectionName::Arm);
 	} else
 	{
-		PlayAnimMontage(EquipMontage,CharacterMontageSectionName::Umarm);
+		PlayAnimMontage(EquipMontage,MontageSectionName::Umarm);
 	}
 }
 

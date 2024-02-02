@@ -28,7 +28,7 @@ struct CharacterSocketName
 	inline const static FName ShieldSocketName = "shield_l";
 };
 
-struct CharacterMontageSectionName
+struct MontageSectionName
 {
 	// AM_Equip
 	inline const static FName Arm = "Arm";
