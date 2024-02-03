@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "HolySword/BaseCharacter.h"
 #include "Enemy.generated.h"
 
 UCLASS()
-class HOLYSWORD_API AEnemy : public ACharacter
+class HOLYSWORD_API AEnemy : public ABaseCharacter
 {
 	GENERATED_BODY()
 
@@ -41,7 +41,6 @@ public:
 private:
 
 protected:
-	virtual void PlayAnimMontage(UAnimMontage* AnimMontage,FName SectionName);
 	
 public:
 	

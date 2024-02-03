@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
-#include "GameFramework/Character.h"
+#include "HolySword/BaseCharacter.h"
 #include "Hero.generated.h"
 
 class UAttributeComponent;
@@ -19,7 +19,7 @@ class USpringArmComponent;
 
 
 UCLASS()
-class HOLYSWORD_API AHero : public ACharacter
+class HOLYSWORD_API AHero : public ABaseCharacter
 {
 	GENERATED_BODY()
 	friend class UBaseAnimInstance;
@@ -125,7 +125,7 @@ private:
 protected:
 	virtual void AttachActorToSocket(AActor* Actor,const FName& SocketName);
 
-	virtual float PlayAnimMontage(UAnimMontage* AnimMontage, FName SectionName);
+	
 	
 public:
 	virtual void LookAction(const FInputActionValue& Value);

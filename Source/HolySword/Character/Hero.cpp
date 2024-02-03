@@ -113,12 +113,6 @@ void AHero::AttachActorToSocket(AActor* Actor, const FName& SocketName)
 	Socket->AttachActor(Actor,GetMesh());
 }
 
-float AHero::PlayAnimMontage(UAnimMontage* AnimMontage, FName SectionName)
-{
-	if (!AnimMontage) return 0;
-	return Super::PlayAnimMontage(AnimMontage,1,SectionName);
-}
-
 void AHero::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
