@@ -4,7 +4,7 @@
 #include "Weapon.h"
 
 #include "Components/BoxComponent.h"
-
+#include "Kismet/KismetSystemLibrary.h"
 
 
 AWeapon::AWeapon()
@@ -19,6 +19,12 @@ AWeapon::AWeapon()
 	BoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	BoxComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
 	BoxComponent->SetCollisionResponseToChannel(ECC_Pawn,ECR_Overlap);
+
+	BoxTraceStart = CreateDefaultSubobject<USceneComponent>("BoxTraceStart");
+	BoxTraceStart->SetupAttachment(GetRootComponent());
+
+	BoxTraceEnd = CreateDefaultSubobject<USceneComponent>("BoxTraceEnd");
+	BoxTraceEnd->SetupAttachment(GetRootComponent());
 }
 
 void AWeapon::BeginPlay()
@@ -42,4 +48,9 @@ void AWeapon::ComponentOverlappedHandle(UPrimitiveComponent* OverlappedComponent
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	
+}
+
+void AWeapon::BoxLineTrace(FHitResult& HitResult)
+{
+	// UKismetSystemLibrary::BoxTraceSingle(this,)
 }

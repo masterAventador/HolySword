@@ -18,11 +18,17 @@ class HOLYSWORD_API AWeapon : public AActor
  */
 
 private:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	USkeletalMeshComponent* MeshComponent;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	UBoxComponent* BoxComponent;
+
+	UPROPERTY(EditDefaultsOnly)
+	USceneComponent* BoxTraceStart;
+
+	UPROPERTY(EditDefaultsOnly)
+	USceneComponent* BoxTraceEnd;
 
 /*
  * Functions
@@ -31,7 +37,7 @@ private:
 private:
 	UFUNCTION()
 	virtual void ComponentOverlappedHandle(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
-
+	void BoxLineTrace(FHitResult& HitResult);
 protected:
 	virtual void BeginPlay() override;
 	
