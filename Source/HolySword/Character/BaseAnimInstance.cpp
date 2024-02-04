@@ -36,7 +36,7 @@ void UBaseAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	bIsJumping = Character->GetMovementComponent()->IsFalling();
 	
 
-	UE_LOG(LogTemp,Warning,TEXT("%d"),State);
+	// UE_LOG(LogTemp,Warning,TEXT("%d"),State);
 	
 	GEngine->AddOnScreenDebugMessage(1,-1,FColor::Red,FString::Printf(TEXT("%f"),Character->GetMovementComponent()->Velocity.Z));
 	GEngine->AddOnScreenDebugMessage(2,-1,FColor::Orange,FString::Printf(L"isRising = %d",bIsJumping));

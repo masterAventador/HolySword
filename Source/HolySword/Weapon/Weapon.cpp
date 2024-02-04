@@ -16,9 +16,9 @@ AWeapon::AWeapon()
 
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>("CollisionBox");
 	BoxComponent->SetupAttachment(GetRootComponent());
-	BoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	// BoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	BoxComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
-	BoxComponent->SetCollisionResponseToChannel(ECC_Pawn,ECR_Overlap);
+	BoxComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 
 	BoxTraceStart = CreateDefaultSubobject<USceneComponent>("BoxTraceStart");
 	BoxTraceStart->SetupAttachment(GetRootComponent());
@@ -30,8 +30,8 @@ AWeapon::AWeapon()
 void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	BoxComponent->OnComponentBeginOverlap.AddDynamic(this,&ThisClass::ComponentOverlappedHandle);
+
+	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::ComponentOverlappedHandle);
 }
 
 void AWeapon::Tick(float DeltaTime)
@@ -45,12 +45,24 @@ void AWeapon::SetCollisionEnabled(bool bEnabled)
 }
 
 void AWeapon::ComponentOverlappedHandle(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                        UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+                                        const FHitResult& SweepResult)
 {
-	
+	if (OtherActor == GetAttachParentActor()) return;
+	FHitResult HitResult;
+	BoxTrace(HitResult);
 }
 
-void AWeapon::BoxLineTrace(FHitResult& HitResult)
+void AWeapon::BoxTrace(FHitResult& HitResult)
 {
-	// UKismetSystemLibrary::BoxTraceSingle(this,)
+	FVector TraceStart = BoxTraceStart->GetComponentLocation();
+	FVector TraceEnd = BoxTraceEnd->GetComponentLocation();
+
+	TArray<AActor*> ActorsToIgnore;
+	UKismetSystemLibrary::BoxTraceSingle(this, TraceStart, TraceEnd, FVector(5.f), BoxComponent->GetComponentRotation(),
+	                                     TraceTypeQuery1, false, ActorsToIgnore, EDrawDebugTrace::ForDuration,
+	                                     HitResult, true, FColor::Red, FColor::Green);
+	AActor* Actor = HitResult.GetActor();
+	UE_LOG(LogTemp, Warning, TEXT("startChasing"));
+	UE_LOG(LogTemp, Warning, TEXT("BoxTrace == %s"),(Actor == nullptr ? (L"None__"):(*Actor->GetActorLabel())));
 }

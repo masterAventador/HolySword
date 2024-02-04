@@ -99,6 +99,8 @@ void AHero::SpawnWeapon()
 	{
 		Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
 	}
+
+	return;
 	if (ShieldClass)
 	{
 		Shield = GetWorld()->SpawnActor<AWeapon>(ShieldClass);
