@@ -16,7 +16,7 @@ AWeapon::AWeapon()
 
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>("CollisionBox");
 	BoxComponent->SetupAttachment(GetRootComponent());
-	// BoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	BoxComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	BoxComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
 	BoxComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 
@@ -50,7 +50,7 @@ void AWeapon::ComponentOverlappedHandle(UPrimitiveComponent* OverlappedComponent
 {
 	UE_LOG(LogTemp,Warning,L"-----------Starting----------");
 	if (OtherActor == GetAttachParentActor()) return;
-	UE_LOG(LogTemp,Warning,TEXT("OverlappedActor's Label == %p"),OtherComp->GetClass());
+	UE_LOG(LogTemp,Warning,TEXT("OverlappedActor's Label == %s"),*OtherComp->GetName());
 	FHitResult HitResult;
 	BoxTrace(HitResult);
 }
@@ -61,7 +61,7 @@ void AWeapon::BoxTrace(FHitResult& HitResult)
 	FVector TraceEnd = BoxTraceEnd->GetComponentLocation();
 	
 	TArray<AActor*> ActorsToIgnore;
-	UKismetSystemLibrary::BoxTraceSingle(this, TraceStart, TraceEnd, FVector(10.f), BoxTraceStart->GetComponentRotation(),
+	UKismetSystemLibrary::BoxTraceSingle(this, TraceStart, TraceEnd, FVector(5.f), BoxTraceStart->GetComponentRotation(),
 	                                     TraceTypeQuery1, false, ActorsToIgnore, EDrawDebugTrace::ForDuration,
 	                                     HitResult, true);
 	AActor* Actor = HitResult.GetActor();
