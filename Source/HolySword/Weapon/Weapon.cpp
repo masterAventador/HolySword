@@ -59,7 +59,7 @@ void AWeapon::BoxTrace(FHitResult& HitResult)
 {
 	FVector TraceStart = BoxTraceStart->GetComponentLocation();
 	FVector TraceEnd = BoxTraceEnd->GetComponentLocation();
-
+	
 	TArray<AActor*> ActorsToIgnore;
 	UKismetSystemLibrary::BoxTraceSingle(this, TraceStart, TraceEnd, FVector(10.f), BoxTraceStart->GetComponentRotation(),
 	                                     TraceTypeQuery1, false, ActorsToIgnore, EDrawDebugTrace::ForDuration,
