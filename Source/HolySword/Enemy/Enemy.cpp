@@ -3,11 +3,15 @@
 
 #include "Enemy.h"
 
+#include "Components/CapsuleComponent.h"
+
 
 AEnemy::AEnemy()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera,ECR_Ignore);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Overlap);
 }
 
 void AEnemy::Tick(float DeltaTime)
