@@ -31,5 +31,6 @@ void AEnemy::Tick(float DeltaTime)
 void AEnemy::GetHit(AActor* Hitter, FVector ImpactPoint)
 {
 	DrawDebugSphere(GetWorld(),ImpactPoint,10,10,FColor::Red,true);
+	DrawDebugLine(GetWorld(),GetActorLocation(),GetActorLocation() + GetActorForwardVector()*100,FColor::Purple,true);
 }
 
