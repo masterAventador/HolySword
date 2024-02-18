@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "HolySword/BaseCharacter.h"
+#include "HolySword/Interface/GetHitInterface.h"
 #include "Enemy.generated.h"
 
 UCLASS()
-class HOLYSWORD_API AEnemy : public ABaseCharacter
+class HOLYSWORD_API AEnemy : public ABaseCharacter,public IGetHitInterface
 {
 	GENERATED_BODY()
 
@@ -33,9 +34,6 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
-
-
 	// custom functions
 
 private:
@@ -43,6 +41,6 @@ private:
 protected:
 	
 public:
-	
+	virtual void GetHit(AActor* Hitter, FVector ImpactPoint) override;
 	
 };

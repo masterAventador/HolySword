@@ -73,7 +73,7 @@ bool AWeapon::BoxTrace(FHitResult& HitResult)
 	
 	TArray<AActor*> ActorsToIgnore;
 	bool bHit = UKismetSystemLibrary::BoxTraceSingle(this, TraceStart, TraceEnd, FVector(5.f), BoxTraceStart->GetComponentRotation(),
-	                                     TraceTypeQuery1, false, ActorsToIgnore, EDrawDebugTrace::ForDuration,
+	                                     TraceTypeQuery1, false, ActorsToIgnore, EDrawDebugTrace::None,
 	                                     HitResult, true);
 	AActor* Actor = HitResult.GetActor();
 	UE_LOG(LogTemp, Warning, TEXT("startChasing"));

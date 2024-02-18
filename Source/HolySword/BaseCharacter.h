@@ -14,6 +14,6 @@ class HOLYSWORD_API ABaseCharacter : public ACharacter
 public:
 	ABaseCharacter();
 
-	virtual float PlayAnimMontage(UAnimMontage* AnimMontage, FName SectionName);
+	virtual float PlayMontage(UAnimMontage* AnimMontage, FName SectionName);
 
 };

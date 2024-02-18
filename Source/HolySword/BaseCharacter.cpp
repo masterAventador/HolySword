@@ -9,7 +9,7 @@ ABaseCharacter::ABaseCharacter()
 
 }
 
-float ABaseCharacter::PlayAnimMontage(UAnimMontage* AnimMontage, FName SectionName)
+float ABaseCharacter::PlayMontage(UAnimMontage* AnimMontage, FName SectionName)
 {
 	if (!AnimMontage) return 0;
 	return Super::PlayAnimMontage(AnimMontage,1,SectionName);

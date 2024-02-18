@@ -4,6 +4,7 @@
 #include "Enemy.h"
 
 #include "Components/CapsuleComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 
 AEnemy::AEnemy()
@@ -15,22 +16,20 @@ AEnemy::AEnemy()
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera,ECR_Ignore);
 }
 
-void AEnemy::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-	
-}
-
-void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
+void AEnemy::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	
+}
+
+void AEnemy::GetHit(AActor* Hitter, FVector ImpactPoint)
+{
+	DrawDebugSphere(GetWorld(),ImpactPoint,10,10,FColor::Red,true);
+}
 

@@ -168,10 +168,10 @@ void AHero::EquipAction(const FInputActionValue& Value)
 {
 	if (WeaponState == CharacterWeaponState::Unarmed)
 	{
-		PlayAnimMontage(EquipMontage,MontageSectionName::Arm);
+		PlayMontage(EquipMontage,MontageSectionName::Arm);
 	} else
 	{
-		PlayAnimMontage(EquipMontage,MontageSectionName::Umarm);
+		PlayMontage(EquipMontage,MontageSectionName::Umarm);
 	}
 }
 
@@ -184,6 +184,6 @@ void AHero::AttackAction(const FInputActionValue& Value)
 {
 	if (!TestComboMontage) return;
 	if (AnimInstance->Montage_IsPlaying(TestComboMontage)) return;
-	PlayAnimMontage(TestComboMontage,"Combo01");
+	PlayMontage(TestComboMontage,"Combo01");
 }
 
