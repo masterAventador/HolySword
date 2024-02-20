@@ -49,9 +49,7 @@ void AWeapon::ComponentOverlappedHandle(UPrimitiveComponent* OverlappedComponent
                                         UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
                                         const FHitResult& SweepResult)
 {
-	UE_LOG(LogTemp,Warning,L"-----------Starting----------");
 	if (OtherActor == GetAttachParentActor()) return;
-	UE_LOG(LogTemp,Warning,TEXT("OverlappedActor's Label == %s"),*OtherComp->GetName());
 	
 	FHitResult HitResult;
 	if (!BoxTrace(HitResult))
@@ -75,9 +73,5 @@ bool AWeapon::BoxTrace(FHitResult& HitResult)
 	bool bHit = UKismetSystemLibrary::BoxTraceSingle(this, TraceStart, TraceEnd, FVector(5.f), BoxTraceStart->GetComponentRotation(),
 	                                     TraceTypeQuery1, false, ActorsToIgnore, EDrawDebugTrace::None,
 	                                     HitResult, true);
-	AActor* Actor = HitResult.GetActor();
-	UE_LOG(LogTemp, Warning, TEXT("startChasing"));
-	UE_LOG(LogTemp, Warning, TEXT("BoxTrace == %s"),(Actor == nullptr ? (L"None__"):(*Actor->GetActorLabel())));
-
 	return bHit;
 }
