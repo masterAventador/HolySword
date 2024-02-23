@@ -57,10 +57,10 @@ void AWeapon::ComponentOverlappedHandle(UPrimitiveComponent* OverlappedComponent
 		return;
 	}
 
-	IGetHitInterface* HittedActor = Cast<IGetHitInterface>(HitResult.GetActor());
-	if (HittedActor)
+	IGetHitInterface* HitActor = Cast<IGetHitInterface>(HitResult.GetActor());
+	if (HitActor)
 	{
-		HittedActor->GetHit(this,HitResult.ImpactPoint);
+		HitActor->GetHit(this,HitResult.ImpactPoint);
 	}
 }
 
