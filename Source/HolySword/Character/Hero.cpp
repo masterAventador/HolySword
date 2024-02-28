@@ -131,6 +131,7 @@ void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 	if (EnhancedInputComponent)
 	{
+		EnhancedInputComponent->BindAction(IARightMouseAction,ETriggerEvent::Started,this,&ThisClass::RightMouseAction);
 		EnhancedInputComponent->BindAction(IALookAction,ETriggerEvent::Triggered,this,&ThisClass::LookAction);
 		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Triggered,this,&ThisClass::MoveActionTriggered);
 		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Completed,this,&ThisClass::MoveActionEnd);
@@ -138,6 +139,11 @@ void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		EnhancedInputComponent->BindAction(IAJumpAction,ETriggerEvent::Started,this,&ThisClass::JumpAction);
 		EnhancedInputComponent->BindAction(IAAttackAction,ETriggerEvent::Started,this,&ThisClass::AttackAction);
 	}
+}
+
+void AHero::RightMouseAction(const FInputActionValue& Value)
+{
+	
 }
 
 void AHero::LookAction(const FInputActionValue& Value)

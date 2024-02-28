@@ -77,6 +77,9 @@ private:
 	// Keyboard Actions
 	UPROPERTY(EditAnywhere)
 	UInputMappingContext* DefaultMappingContext;
+
+	UPROPERTY(EditAnywhere)
+	UInputAction* IARightMouseAction;
 	
 	UPROPERTY(EditAnywhere)
 	UInputAction* IALookAction;
@@ -128,6 +131,8 @@ protected:
 	
 	
 public:
+	virtual void RightMouseAction(const FInputActionValue& Value);
+	
 	virtual void LookAction(const FInputActionValue& Value);
 
 	virtual void MoveActionTriggered(const FInputActionValue& Value);
