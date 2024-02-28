@@ -14,6 +14,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Engine/SkeletalMeshSocket.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "HolySword/GameMode/BaseController.h"
 
 
 AHero::AHero():State(CharacterState::Idle),WeaponState(CharacterWeaponState::Unarmed)
@@ -132,7 +133,9 @@ void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	if (EnhancedInputComponent)
 	{
 		EnhancedInputComponent->BindAction(IARightMouseAction,ETriggerEvent::Started,this,&ThisClass::RightMouseAction);
+		EnhancedInputComponent->BindAction(IALookAction,ETriggerEvent::Started,this,&AHero::LookActionBegin);
 		EnhancedInputComponent->BindAction(IALookAction,ETriggerEvent::Triggered,this,&ThisClass::LookAction);
+		EnhancedInputComponent->BindAction(IALookAction,ETriggerEvent::Canceled | ETriggerEvent::Completed,this,&ThisClass::LookActionEnd);
 		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Triggered,this,&ThisClass::MoveActionTriggered);
 		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Completed,this,&ThisClass::MoveActionEnd);
 		EnhancedInputComponent->BindAction(IAEquipAction,ETriggerEvent::Started,this,&ThisClass::EquipAction);
@@ -146,11 +149,27 @@ void AHero::RightMouseAction(const FInputActionValue& Value)
 	
 }
 
+void AHero::LookActionBegin(const FInputActionValue& Value)
+{
+	if (ABaseController* PlayerController = Cast<ABaseController>(GetController()))
+	{
+		PlayerController->SetShowMouseCursor(false);
+	}
+}
+
 void AHero::LookAction(const FInputActionValue& Value)
 {
 	FVector2D LookVector = Value.Get<FVector2D>();
 	AddControllerYawInput(LookVector.X);
 	AddControllerPitchInput(LookVector.Y);
+}
+
+void AHero::LookActionEnd(const FInputActionValue& Value)
+{
+	if (ABaseController* PlayerController = Cast<ABaseController>(GetController()))
+	{
+		PlayerController->SetShowMouseCursor(true);
+	}
 }
 
 void AHero::MoveActionTriggered(const FInputActionValue& Value)

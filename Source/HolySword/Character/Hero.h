@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
-#include "HolySword/BaseCharacter.h"
+#include "HolySword/CommonBase/BaseCharacter.h"
 #include "Hero.generated.h"
 
 class UAttributeComponent;
@@ -132,8 +132,10 @@ protected:
 	
 public:
 	virtual void RightMouseAction(const FInputActionValue& Value);
-	
+
+	virtual void LookActionBegin(const FInputActionValue& Value);
 	virtual void LookAction(const FInputActionValue& Value);
+	virtual void LookActionEnd(const FInputActionValue& Value);
 
 	virtual void MoveActionTriggered(const FInputActionValue& Value);
 

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "HolySword/BaseCharacter.h"
+#include "HolySword/CommonBase/BaseCharacter.h"
 #include "HolySword/Interface/GetHitInterface.h"
 #include "Enemy.generated.h"
 
