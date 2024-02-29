@@ -132,10 +132,8 @@ void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 	if (EnhancedInputComponent)
 	{
-		EnhancedInputComponent->BindAction(IARightMouseAction,ETriggerEvent::Started,this,&ThisClass::RightMouseAction);
-		EnhancedInputComponent->BindAction(IALookAction,ETriggerEvent::Started,this,&AHero::LookActionBegin);
+		EnhancedInputComponent->BindAction(IAMouseRightButtonAction,ETriggerEvent::Started,this,&ThisClass::MouseRightButtonAction);
 		EnhancedInputComponent->BindAction(IALookAction,ETriggerEvent::Triggered,this,&ThisClass::LookAction);
-		EnhancedInputComponent->BindAction(IALookAction,ETriggerEvent::Canceled | ETriggerEvent::Completed,this,&ThisClass::LookActionEnd);
 		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Triggered,this,&ThisClass::MoveActionTriggered);
 		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Completed,this,&ThisClass::MoveActionEnd);
 		EnhancedInputComponent->BindAction(IAEquipAction,ETriggerEvent::Started,this,&ThisClass::EquipAction);
@@ -144,32 +142,18 @@ void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	}
 }
 
-void AHero::RightMouseAction(const FInputActionValue& Value)
+void AHero::MouseRightButtonAction(const FInputActionValue& Value)
 {
-	
-}
-
-void AHero::LookActionBegin(const FInputActionValue& Value)
-{
-	if (ABaseController* PlayerController = Cast<ABaseController>(GetController()))
-	{
-		PlayerController->SetShowMouseCursor(false);
-	}
+	bMouseRightButtonPressed = Value.Get<bool>();
+	UE_LOG(LogTemp,Warning,TEXT("RightButtonPressed"));
 }
 
 void AHero::LookAction(const FInputActionValue& Value)
 {
+	if (!bMouseRightButtonPressed) return;
 	FVector2D LookVector = Value.Get<FVector2D>();
 	AddControllerYawInput(LookVector.X);
 	AddControllerPitchInput(LookVector.Y);
-}
-
-void AHero::LookActionEnd(const FInputActionValue& Value)
-{
-	if (ABaseController* PlayerController = Cast<ABaseController>(GetController()))
-	{
-		PlayerController->SetShowMouseCursor(true);
-	}
 }
 
 void AHero::MoveActionTriggered(const FInputActionValue& Value)

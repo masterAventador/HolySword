@@ -15,4 +15,6 @@ class HOLYSWORD_API ABaseController : public APlayerController
 	GENERATED_BODY()
 public:
 	ABaseController();
+
+	void BeginPlay() override;
 };

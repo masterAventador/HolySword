@@ -29,6 +29,9 @@ class HOLYSWORD_API AHero : public ABaseCharacter
  */
 
 private:
+
+	bool bMouseRightButtonPressed;
+	
 	// Components
 	UPROPERTY(VisibleAnywhere)
 	UBaseAnimInstance* AnimInstance;
@@ -79,7 +82,7 @@ private:
 	UInputMappingContext* DefaultMappingContext;
 
 	UPROPERTY(EditAnywhere)
-	UInputAction* IARightMouseAction;
+	UInputAction* IAMouseRightButtonAction;
 	
 	UPROPERTY(EditAnywhere)
 	UInputAction* IALookAction;
@@ -131,11 +134,9 @@ protected:
 	
 	
 public:
-	virtual void RightMouseAction(const FInputActionValue& Value);
+	virtual void MouseRightButtonAction(const FInputActionValue& Value);
 
-	virtual void LookActionBegin(const FInputActionValue& Value);
 	virtual void LookAction(const FInputActionValue& Value);
-	virtual void LookActionEnd(const FInputActionValue& Value);
 
 	virtual void MoveActionTriggered(const FInputActionValue& Value);
 

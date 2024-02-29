@@ -7,3 +7,9 @@ ABaseController::ABaseController()
 {
 	SetShowMouseCursor(true);
 }
+
+void ABaseController::BeginPlay()
+{
+	Super::BeginPlay();
+	SetInputMode(FInputModeGameAndUI{});
+}
