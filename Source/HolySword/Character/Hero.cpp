@@ -36,7 +36,7 @@ AHero::AHero():State(CharacterState::Idle),WeaponState(CharacterWeaponState::Una
 	CameraComponent->SetupAttachment(SpringArmComponent);
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
-	GetCharacterMovement()->RotationRate = FRotator(0.f,500.f,0.f);
+	GetCharacterMovement()->RotationRate = FRotator(0.f,1000.f,0.f);
 	GetCharacterMovement()->JumpZVelocity = 600.f;
 
 	AttributeComponent = CreateDefaultSubobject<UAttributeComponent>("Attributes");
