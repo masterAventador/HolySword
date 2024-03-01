@@ -29,7 +29,8 @@ class HOLYSWORD_API AHero : public ABaseCharacter
  */
 
 private:
-
+	bool bMouseLeftButtonPressed;
+	
 	bool bMouseRightButtonPressed;
 	
 	// Components
@@ -82,6 +83,9 @@ private:
 	UInputMappingContext* DefaultMappingContext;
 
 	UPROPERTY(EditAnywhere)
+	UInputAction* IAMouseLeftButtonAction;
+	
+	UPROPERTY(EditAnywhere)
 	UInputAction* IAMouseRightButtonAction;
 	
 	UPROPERTY(EditAnywhere)
@@ -131,9 +135,9 @@ private:
 protected:
 	virtual void AttachActorToSocket(AActor* Actor,const FName& SocketName);
 
-	
-	
 public:
+	virtual void MouseLeftButtonAction(const FInputActionValue& Value);
+	
 	virtual void MouseRightButtonAction(const FInputActionValue& Value);
 
 	virtual void LookAction(const FInputActionValue& Value);

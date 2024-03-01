@@ -104,19 +104,10 @@ void AHero::SpawnWeapon()
 		Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
 	}
 
-	return;
 	if (ShieldClass)
 	{
 		Shield = GetWorld()->SpawnActor<AWeapon>(ShieldClass);
 	}
-}
-
-void AHero::AttachActorToSocket(AActor* Actor, const FName& SocketName)
-{
-	if (!Actor) return;
-	const USkeletalMeshSocket* Socket = GetMesh()->GetSocketByName(SocketName);
-	if (!Socket) return;
-	Socket->AttachActor(Actor,GetMesh());
 }
 
 void AHero::Tick(float DeltaTime)
@@ -132,7 +123,10 @@ void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 	if (EnhancedInputComponent)
 	{
+		EnhancedInputComponent->BindAction(IAMouseLeftButtonAction,ETriggerEvent::Started,this,&ThisClass::MouseLeftButtonAction);
+		EnhancedInputComponent->BindAction(IAMouseLeftButtonAction,ETriggerEvent::Completed,this,&ThisClass::MouseLeftButtonAction);
 		EnhancedInputComponent->BindAction(IAMouseRightButtonAction,ETriggerEvent::Started,this,&ThisClass::MouseRightButtonAction);
+		EnhancedInputComponent->BindAction(IAMouseRightButtonAction,ETriggerEvent::Completed,this,&ThisClass::MouseRightButtonAction);
 		EnhancedInputComponent->BindAction(IALookAction,ETriggerEvent::Triggered,this,&ThisClass::LookAction);
 		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Triggered,this,&ThisClass::MoveActionTriggered);
 		EnhancedInputComponent->BindAction(IAMoveAction,ETriggerEvent::Completed,this,&ThisClass::MoveActionEnd);
@@ -142,15 +136,30 @@ void AHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	}
 }
 
+void AHero::AttachActorToSocket(AActor* Actor, const FName& SocketName)
+{
+	if (!Actor) return;
+	const USkeletalMeshSocket* Socket = GetMesh()->GetSocketByName(SocketName);
+	if (!Socket) return;
+	Socket->AttachActor(Actor,GetMesh());
+}
+
+void AHero::MouseLeftButtonAction(const FInputActionValue& Value)
+{
+	bMouseLeftButtonPressed = Value.Get<bool>();
+	UE_LOG(LogTemp,Warning,TEXT("LeftButtonPressed == %d"),bMouseLeftButtonPressed);
+}
+
 void AHero::MouseRightButtonAction(const FInputActionValue& Value)
 {
 	bMouseRightButtonPressed = Value.Get<bool>();
-	UE_LOG(LogTemp,Warning,TEXT("RightButtonPressed"));
+	UE_LOG(LogTemp,Warning,TEXT("RightButtonPressed == %d"),bMouseRightButtonPressed);
 }
 
 void AHero::LookAction(const FInputActionValue& Value)
 {
-	if (!bMouseRightButtonPressed) return;
+	if (!bMouseLeftButtonPressed && !bMouseRightButtonPressed) return;
+	
 	FVector2D LookVector = Value.Get<FVector2D>();
 	AddControllerYawInput(LookVector.X);
 	AddControllerPitchInput(LookVector.Y);
