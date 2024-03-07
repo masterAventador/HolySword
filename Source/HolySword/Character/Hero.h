@@ -5,9 +5,9 @@
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
 #include "HolySword/CommonBase/BaseCharacter.h"
+#include "HolySword/Interface/GetHitInterface.h"
 #include "Hero.generated.h"
 
-class UAttributeComponent;
 class AWeapon;
 enum class CharacterWeaponState : uint8;
 enum class CharacterState : uint8;
@@ -19,7 +19,7 @@ class USpringArmComponent;
 
 
 UCLASS()
-class HOLYSWORD_API AHero : public ABaseCharacter
+class HOLYSWORD_API AHero : public ABaseCharacter,public IGetHitInterface
 {
 	GENERATED_BODY()
 	friend class UBaseAnimInstance;
@@ -42,9 +42,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComponent;
-
-	UPROPERTY(VisibleAnywhere)
-	UAttributeComponent* AttributeComponent;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AWeapon> WeaponClass;
@@ -152,4 +149,7 @@ public:
 
 	virtual void AttackAction(const FInputActionValue& Value);
 
+	// override
+	virtual void GetHit(AActor* Hitter, const FVector& ImpactPoint, const float Damage) override;
+	
 };

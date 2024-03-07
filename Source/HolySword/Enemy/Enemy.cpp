@@ -28,7 +28,20 @@ void AEnemy::Tick(float DeltaTime)
 	
 }
 
-void AEnemy::GetHit(AActor* Hitter, FVector ImpactPoint)
+float AEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+	AActor* DamageCauser)
+{
+	Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	
+	return DamageAmount;
+}
+
+void AEnemy::GetHit(AActor* Hitter, const FVector& ImpactPoint, const float Damage)
+{
+	PlayGetHitMontage(ImpactPoint);
+}
+
+void AEnemy::PlayGetHitMontage(const FVector& ImpactPoint)
 {
 	FVector ImpactPointLower = FVector(ImpactPoint.X,ImpactPoint.Y,GetActorLocation().Z);
 	FVector HitVector = (ImpactPointLower - GetActorLocation()).GetSafeNormal();
@@ -56,4 +69,7 @@ void AEnemy::GetHit(AActor* Hitter, FVector ImpactPoint)
 	}
 	PlayMontage(GetHitMontage,GetHitSection);
 }
+
+
+
 

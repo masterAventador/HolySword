@@ -14,7 +14,6 @@
 #include "Components/CapsuleComponent.h"
 #include "Engine/SkeletalMeshSocket.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "HolySword/GameMode/BaseController.h"
 
 
 AHero::AHero():State(CharacterState::Idle),WeaponState(CharacterWeaponState::Unarmed)
@@ -38,8 +37,6 @@ AHero::AHero():State(CharacterState::Idle),WeaponState(CharacterWeaponState::Una
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.f,1000.f,0.f);
 	GetCharacterMovement()->JumpZVelocity = 600.f;
-
-	AttributeComponent = CreateDefaultSubobject<UAttributeComponent>("Attributes");
 
 }
 
@@ -203,5 +200,9 @@ void AHero::AttackAction(const FInputActionValue& Value)
 	if (!TestComboMontage) return;
 	if (AnimInstance->Montage_IsPlaying(TestComboMontage)) return;
 	PlayMontage(TestComboMontage,"Combo01");
+}
+
+void AHero::GetHit(AActor* Hitter, const FVector& ImpactPoint, const float Damage)
+{
 }
 

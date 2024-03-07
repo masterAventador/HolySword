@@ -22,5 +22,5 @@ class HOLYSWORD_API IGetHitInterface
 
 	
 public:
-	virtual void GetHit(AActor* Hitter,FVector ImpactPoint) = 0;
+	virtual void GetHit(AActor* Hitter,const FVector& ImpactPoint,const float Damage) = 0;
 };

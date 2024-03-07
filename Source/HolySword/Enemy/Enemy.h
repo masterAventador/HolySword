@@ -33,14 +33,17 @@ public:
 	AEnemy();
 
 	virtual void Tick(float DeltaTime) override;
+	
 
 	// custom functions
-
 private:
-
+	
 protected:
 	
 public:
-	virtual void GetHit(AActor* Hitter, FVector ImpactPoint) override;
-	
+
+	// override
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+	virtual void GetHit(AActor* Hitter, const FVector& ImpactPoint,const float Damage) override;
+	virtual void PlayGetHitMontage(const FVector& ImpactPoint) override;
 };

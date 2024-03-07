@@ -30,6 +30,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	USceneComponent* BoxTraceEnd;
 
+public:
+	float Damage = 20.f;
+
 /*
  * Functions
  */

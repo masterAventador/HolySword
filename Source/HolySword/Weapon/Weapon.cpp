@@ -5,6 +5,7 @@
 
 #include "Components/BoxComponent.h"
 #include "HolySword/Interface/GetHitInterface.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 
@@ -60,7 +61,8 @@ void AWeapon::ComponentOverlappedHandle(UPrimitiveComponent* OverlappedComponent
 	IGetHitInterface* HitActor = Cast<IGetHitInterface>(HitResult.GetActor());
 	if (HitActor)
 	{
-		HitActor->GetHit(this,HitResult.ImpactPoint);
+		UGameplayStatics::ApplyDamage(HitResult.GetActor(),Damage,GetInstigator()->GetController(),this,UDamageType::StaticClass());
+		HitActor->GetHit(this,HitResult.ImpactPoint,Damage);
 	}
 }
 
